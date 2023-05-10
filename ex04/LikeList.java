@@ -1,13 +1,13 @@
 package ex04;
-
+//수정 ㅇ
 public class LikeList {
 
     public static void main(String[] args) {
         LikeList myList =new LikeList();
-        myList.insert(1,1);
-        myList.insert(2,2);
+        myList.insert(0,1);
+
         myList.print();
-        myList.delete(1);
+        myList.delete(0);
         myList.print();
     }
     private Node head; //head는 연결리스트 맨 앞, 첫번째 노드를 가리킴
@@ -22,19 +22,26 @@ public class LikeList {
         }
     }
     // 삽입 메서드, index 위치에 노드 추가
+    //****index사용해서 수정하기*****
     public void insert(int index, int data) {
         Node newNode = new Node(data);
-        if (head == null) {
+        if (head == null) { // 리스트가 비어있는 경우
             head = newNode;
-        } else {
+        } else if (index == 0) {//리스트의 맨 앞에 삽입하는 경우
+            newNode.next = head;
+            head = newNode;
+        } else {//중간이나 끝에 삽입하는 경우
+            int count = 0;
             Node current = head;
-            while (current.next != null) {
+            while (count < index - 1 && current.next != null) {
                 current = current.next;
+                count++;
             }
+            newNode.next = current.next;
             current.next = newNode;
         }
-
     }
+
 
     // 삭제 메서드, index 위치에 노드 삭제
         //리스트 요소를 삭제하려면, 현재 요소를 다음 인덱스의 요소로 바꿔줌. 삭제할 노드 건너뛰어서 연결 연결 해줘야함
